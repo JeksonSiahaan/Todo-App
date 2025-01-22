@@ -41,16 +41,16 @@ jobs:
 
       - name: Tag frontend Docker image
         run: |
-          docker tag frontend:latest ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}:latest
+          docker tag ${{ env.FRONTEND_IMAGE_NAME }}:latest ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}:latest
 
       - name: Push frontend Docker image
         run: |
-          docker push jeksonsiahaan/backend-app:latest
+          docker push ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}:latest
 
       - name: Tag backend Docker image
         run: |
-          docker tag backend:latest ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:latest
+          docker tag ${{ env.BACKEND_IMAGE_NAME }}:latest ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:latest
 
       - name: Push backend Docker image
         run: |
-          docker push jeksonsiahaan/backend-app:latest
+          docker push ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:latest
