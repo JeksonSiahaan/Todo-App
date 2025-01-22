@@ -22,7 +22,10 @@ jobs:
         run: docker build -t ${{ env.BACKEND_IMAGE_NAME }}:latest ./backend
 
       - name: Verify built images
-        run: docker images
+        run: |
+          docker images
+          echo "Frontend image name: ${{ env.FRONTEND_IMAGE_NAME }}:latest"
+          echo "Backend image name: ${{ env.BACKEND_IMAGE_NAME }}:latest"
 
   push_to_registry:
     runs-on: ubuntu-latest
@@ -39,18 +42,25 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Check Docker login status
+        run: docker info
+
       - name: Tag frontend Docker image
         run: |
           docker tag ${{ env.FRONTEND_IMAGE_NAME }}:latest ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}:latest
+          echo "Tagged frontend image: ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}:latest"
 
       - name: Push frontend Docker image
         run: |
           docker push ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}:latest
+          echo "Pushed frontend image: ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}:latest"
 
       - name: Tag backend Docker image
         run: |
           docker tag ${{ env.BACKEND_IMAGE_NAME }}:latest ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:latest
+          echo "Tagged backend image: ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:latest"
 
       - name: Push backend Docker image
         run: |
           docker push ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:latest
+          echo "Pushed backend image: ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:latest"
