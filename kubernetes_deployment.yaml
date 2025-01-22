@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: bintangganteng/frontend-app:main
+          image: jeksonsiahaan/frontend-app:main
           ports:
             - containerPort: 3000
 ---
@@ -55,7 +55,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: bintangganteng/backend-app:main
+          image: jeksonsiahaan/backend-app:main
           ports:
             - containerPort: 5000
 ---

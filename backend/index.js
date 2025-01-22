@@ -29,7 +29,7 @@ app.use("/api/signup", signUp);
 app.use("/api/signin", signIn);
 
 app.get("/", (req, res) => {
-  res.send("welcome to the todos api...");
+  res.send("welcome to my api");
 });
 
 const uri = "mongodb+srv://bintang:123@cluster0.gzdfphf.mongodb.net/todo";
