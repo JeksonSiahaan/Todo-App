@@ -37,7 +37,7 @@ jobs:
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        password: "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"
 
     - name: Tag frontend Docker image
       run: |
