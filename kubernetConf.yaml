@@ -1,4 +1,3 @@
-# Frontend Deployment and Service
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -18,7 +17,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: jeksonsiahaan/frontend-app:main
+          image: jeksonsiahaan/frontend-app:latest
           ports:
             - containerPort: 3000
 ---
@@ -35,7 +34,6 @@ spec:
       targetPort: 3000
   type: NodePort
 
-# Backend Deployment and Service
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -55,7 +53,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: jeksonsiahaan/backend-app:main
+          image: jeksonsiahaan/backend-app:latest
           ports:
             - containerPort: 5000
 ---
@@ -71,45 +69,3 @@ spec:
       port: 80
       targetPort: 5000
   type: NodePort
-
-# Horizontal Pod Autoscaler for Frontend
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: frontend-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: frontend-deployment
-  minReplicas: 1
-  maxReplicas: 5
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 50
-
-# Horizontal Pod Autoscaler for Backend
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: backend-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: backend-deployment
-  minReplicas: 1
-  maxReplicas: 5
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 50
